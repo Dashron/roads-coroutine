@@ -1,0 +1,22 @@
+{
+  "name": "roads-coroutine",
+  "version": "1.0.0",
+  "description": "A simple library to turn javascript generators into promise-returning functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --harmony ./node_modules/nodeunit/bin/nodeunit ./tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dashron/roads-coroutine.git"
+  },
+  "author": "Aaron Hedges",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dashron/roads-coroutine/issues"
+  },
+  "devDependencies": {
+    "nodeunit": "0.9.1"
+  },
+  "homepage": "https://github.com/Dashron/roads-coroutine#readme"
+}
