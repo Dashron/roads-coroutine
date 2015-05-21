@@ -1,6 +1,6 @@
 {
   "name": "roads-coroutine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple library to turn javascript generators into promise-returning functions",
   "main": "index.js",
   "scripts": {

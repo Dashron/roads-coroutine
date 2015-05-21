@@ -1,3 +1,11 @@
+"use strict";
+
+/**
+* roads-coroutine.js
+* Copyright(c) 2015 Aaron Hedges <aaron@dashron.com>
+* MIT Licensed
+ */
+
 module.exports = function (generator_function) {
 	// This is valid, but it might be better to execute the function and check if the 
 	if (['GeneratorFunction'].indexOf(generator_function.constructor.name) === -1) {
@@ -14,7 +22,12 @@ module.exports = function (generator_function) {
 
 			var run = function runGenerator (val) {
 				var gen_response = null;
-				gen_response = generator.next(val);
+
+				try {
+					gen_response = generator.next(val);
+				} catch (err) {
+					return reject(err);
+				}
 
 				if (!gen_response.done) {
 					return Promise.resolve(gen_response.value).then(run, reject);
@@ -25,5 +38,5 @@ module.exports = function (generator_function) {
 
 			return run();
 		});
-	}
-}
+	};
+};

@@ -169,6 +169,21 @@ exports.testCoroutineExecutesGeneratorFunctionThrowingErrorBeforeYielding = func
 	});
 };
 
+exports.testCoroutineExecutesGeneratorFunctionThrowingErrorAfterYielding = function (test) {
+	var result = coroutine(function* () {
+		var test = yield "yes";
+		throw new Error('oh no');
+		return test;
+	})()
+	.then(function (result) {
+		test.fail(result);
+		test.done();
+	}, function (error) {
+		test.equal('oh no', error.message);
+		test.done();
+	});
+};
+
 /**
  * .bind method still works. NOTE YOU MUST BIND BEFORE YOU WRAP THE COROUTINE
  */
