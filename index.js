@@ -20,19 +20,29 @@ module.exports = function (generator_function) {
 		return new Promise(function (resolve, reject) {
 			var generator = generator_function.apply(method_this, method_args);
 
-			var run = function runGenerator (val) {
+			// This method will execute all the run logic, except it will throw the error from the yield instead of return it.
+			var runThrow = function (err) {
+				return run(err, 'throw');
+			};
+
+			var run = function runGenerator (val, func) {
+				if (!func) {
+					func = 'next';
+				}
+
 				var gen_response = null;
 
 				try {
-					gen_response = generator.next(val);
+					gen_response = generator[func](val);
+
+					if (!gen_response.done) {
+						return Promise.resolve(gen_response.value).then(run, runThrow);
+					} else {
+						return resolve(gen_response.value);
+					}
+
 				} catch (err) {
 					return reject(err);
-				}
-
-				if (!gen_response.done) {
-					return Promise.resolve(gen_response.value).then(run, reject);
-				} else {
-					resolve(gen_response.value);
 				}
 			};
 

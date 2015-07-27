@@ -209,3 +209,27 @@ exports.testCorutineWithYieldPassedThroughBoundContexts = function (test) {
 		test.done();
 	})
 }
+
+exports.testYieldExceptionsCatchableInGeneratorFunction = function (test) {
+	var fn = coroutine(function* (foo) {
+		try {
+			var a = yield foo;
+		} catch (e) {
+			return e;
+		}
+
+		return a;
+	});
+
+	var err = new Error('surface error');
+
+	fn(new Promise(function (resolve, reject) {
+		reject(err);
+	})).then(function (response) {
+		test.equal(response, err);
+		test.done();
+	}).catch(function (err) {
+		test.fail(err);
+		test.done();
+	});
+}
