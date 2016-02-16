@@ -3,7 +3,7 @@ var coroutine = require('./index');
 /**
  * Normal functions
  */
-exports.testCoroutineExecutesNormalFunction = function (test) {
+exports['coroutine executes normal function'] = function (test) {
 	var result = coroutine(function () {
 		return 'yes';
 	})();
@@ -12,7 +12,7 @@ exports.testCoroutineExecutesNormalFunction = function (test) {
 	test.done();
 };
 
-exports.testCoroutineExecutesNormalFunctionAndRetainsContext = function (test) {
+exports['coroutine executes normal function and retains context'] = function (test) {
 	var result = coroutine(function () {
 		return this;
 	}).bind('what')();
@@ -21,7 +21,7 @@ exports.testCoroutineExecutesNormalFunctionAndRetainsContext = function (test) {
 	test.done();
 };
 
-exports.testCoroutineExecutesNormalFunctionAndRetainsParameters = function (test) {
+exports['coroutine executes normal function and retains parameters'] = function (test) {
 	var result = coroutine(function (arg1, arg2) {
 		return arg1 + arg2;
 	})('a', 'b');
@@ -31,11 +31,11 @@ exports.testCoroutineExecutesNormalFunctionAndRetainsParameters = function (test
 };
 
 
-exports.testCoroutineExecutesFunctionWithoutReturning = function (test) {
+exports['coroutine executes function without returning'] = function (test) {
 	var result = coroutine(function () {
 		var a = 1+1;
 	})();
-	
+
 	test.equal(undefined, result);
 	test.done();
 };
@@ -43,7 +43,7 @@ exports.testCoroutineExecutesFunctionWithoutReturning = function (test) {
 /**
  * Generator functions without yield
  */
-exports.testCoroutineExecutesGeneratorFunction = function (test) {
+exports['coroutine executes generator function'] = function (test) {
 	var result = coroutine(function* () {
 		return 'yes';
 	})().then(function (result) {
@@ -57,7 +57,7 @@ exports.testCoroutineExecutesGeneratorFunction = function (test) {
 	});;
 };
 
-exports.testCoroutineExecutesGeneratorFunctionAndRetainsContext = function (test) {
+exports['coroutine executes generator function and retains context'] = function (test) {
 	var result = coroutine(function* () {
 		return this;
 	}).bind('what')()
@@ -72,7 +72,7 @@ exports.testCoroutineExecutesGeneratorFunctionAndRetainsContext = function (test
 	});;
 };
 
-exports.testCoroutineExecutesGeneratorFunctionAndRetainsParameters = function (test) {
+exports['coroutine executes generator function and retains parameters'] = function (test) {
 	var result = coroutine(function* (arg1, arg2) {
 		return arg1 + arg2;
 	})('a', 'b').then(function (result) {
@@ -86,7 +86,7 @@ exports.testCoroutineExecutesGeneratorFunctionAndRetainsParameters = function (t
 	});
 };
 
-exports.testCoroutineExecutesGeneratorFunctionWithoutReturning = function (test) {
+exports['coroutine executes generator function without returning'] = function (test) {
 	var result = coroutine(function* () {
 		var a = 1+1;
 	})().then(function (result) {
@@ -98,7 +98,7 @@ exports.testCoroutineExecutesGeneratorFunctionWithoutReturning = function (test)
 /**
  * Generator functions with yields
  */
-exports.testCoroutineExecutesGeneratorFunctionYieldingPrimitives = function (test) {
+exports['coroutine executes generator function yielding primitives'] = function (test) {
 	var result = coroutine(function* () {
 		var test = yield 'yes';
 		return test;
@@ -113,7 +113,7 @@ exports.testCoroutineExecutesGeneratorFunctionYieldingPrimitives = function (tes
 	});
 };
 
-exports.testCoroutineExecutesGeneratorFunctionYieldingPromises = function (test) {
+exports['coroutine executes generator function yielding promises'] = function (test) {
 	var result = coroutine(function* () {
 		var test = yield new Promise(function (resolve, reject) {
 			resolve('yes');
@@ -131,7 +131,7 @@ exports.testCoroutineExecutesGeneratorFunctionYieldingPromises = function (test)
 	});
 };
 
-exports.testCoroutineExecutesGeneratorFunctionYieldingPromisesRejectingValues = function (test) {
+exports['coroutine executes generator function yielding promises rejecting values'] = function (test) {
 	var result = coroutine(function* () {
 		var test = yield new Promise(function (resolve, reject) {
 			reject('yes');
@@ -144,7 +144,7 @@ exports.testCoroutineExecutesGeneratorFunctionYieldingPromisesRejectingValues = 
 	});
 };
 
-exports.testCoroutineExecutesGeneratorFunctionYieldingPromisesThrowingErrors = function (test) {
+exports['coroutine executes generator function yielding promises throwing errors'] = function (test) {
 	var result = coroutine(function* () {
 		var test = yield new Promise(function (resolve, reject) {
 			throw new Error('yes')
@@ -157,7 +157,7 @@ exports.testCoroutineExecutesGeneratorFunctionYieldingPromisesThrowingErrors = f
 	});
 };
 
-exports.testCoroutineExecutesGeneratorFunctionThrowingErrorBeforeYielding = function (test) {
+exports['coroutine executes generator function throwing error before yielding'] = function (test) {
 	var result = coroutine(function* () {
 		throw new Error('oh no');
 		var test = yield "yes";
@@ -169,7 +169,7 @@ exports.testCoroutineExecutesGeneratorFunctionThrowingErrorBeforeYielding = func
 	});
 };
 
-exports.testCoroutineExecutesGeneratorFunctionThrowingErrorAfterYielding = function (test) {
+exports['coroutine executes generator function throwing error after yielding'] = function (test) {
 	var result = coroutine(function* () {
 		var test = yield "yes";
 		throw new Error('oh no');
@@ -187,7 +187,7 @@ exports.testCoroutineExecutesGeneratorFunctionThrowingErrorAfterYielding = funct
 /**
  * .bind method still works. NOTE YOU MUST BIND BEFORE YOU WRAP THE COROUTINE
  */
-exports.testCorutinePassedThroughBoundContexts = function (test) {
+exports['coroutine passed through bound contexts'] = function (test) {
 	var fn = coroutine(function* (foo) {
 		return this + foo;
 	}).bind('hello', 'world');
@@ -198,7 +198,7 @@ exports.testCorutinePassedThroughBoundContexts = function (test) {
 	})
 }
 
-exports.testCorutineWithYieldPassedThroughBoundContexts = function (test) {
+exports['coroutine with yield passed through bound contexts'] = function (test) {
 	var fn = coroutine(function* (foo) {
 		var a = yield foo;
 		return this + foo;
@@ -210,7 +210,7 @@ exports.testCorutineWithYieldPassedThroughBoundContexts = function (test) {
 	})
 }
 
-exports.testYieldExceptionsCatchableInGeneratorFunction = function (test) {
+exports['test yield exceptions catchable in generator function'] = function (test) {
 	var fn = coroutine(function* (foo) {
 		try {
 			var a = yield foo;
