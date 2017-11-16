@@ -1,3 +1,5 @@
+# Async and Await are in stable versions of node! Use that instead!
+
 # roads-coroutine
 A simple library to turn javascript generators into promise-returning functions.
 
